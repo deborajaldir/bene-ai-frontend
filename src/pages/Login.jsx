@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 function Login() {
+    const navigate = useNavigate();
+
     return (
         <div className="relative min-h-screen bg-gradient-to-br from-[#F3E4BA] via-[#E6D09A] to-[#D8BE7A] flex items-center justify-center p-4 lg:p-8 overflow-hidden">
 
@@ -153,10 +157,7 @@ overflow-hidden
                                 className="bg-[#F5F5F4] p-4 rounded-2xl outline-none text-base placeholder:text-gray-400"
                             />
 
-                            <button
-                                className="
-bg-gradient-to-b
-from-[#F7E7B8]
+                            <button onClick={() => navigate("/dashboard")} className="bg-gradient-to-b from-[#F7E7B8]
 to-[#E7CD87]
 text-[#4B4B4B]
 p-4
