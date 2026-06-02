@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom"
 import Layout from "../components/Layout"
+import ResumoCard from "../components/ResumoCard"
+import MetaCard from "../components/MetaCard"
+import ContaCard from "../components/ContaCard"
+import ConquistaCard from "../components/ConquistaCard"
 
 function Dashboard() {
     return (
@@ -30,35 +34,22 @@ function Dashboard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
 
-                        <div className="bg-white/60 rounded-[30px] p-6">
-                            <p className="text-gray-500">
-                                Saldo disponível
-                            </p>
+                        <ResumoCard
+                            titulo="Saldo disponível"
+                            valor="R$ 3.250"
+                        />
 
-                            <h2 className="text-4xl font-bold text-[#4B4B4B] mt-3">
-                                R$ 3.250
-                            </h2>
-                        </div>
+                        <ResumoCard
+                            titulo="Economia do mês"
+                            valor="+R$ 430"
+                            cor="text-green-600"
+                        />
 
-                        <div className="bg-white/60 rounded-[30px] p-6">
-                            <p className="text-gray-500">
-                                Economia do mês
-                            </p>
-
-                            <h2 className="text-4xl font-bold text-green-600 mt-3">
-                                +R$ 430
-                            </h2>
-                        </div>
-
-                        <div className="bg-white/60 rounded-[30px] p-6">
-                            <p className="text-gray-500">
-                                Meta principal
-                            </p>
-
-                            <h2 className="text-4xl font-bold text-blue-600 mt-3">
-                                82%
-                            </h2>
-                        </div>
+                        <ResumoCard
+                            titulo="Meta principal"
+                            valor="82%"
+                            cor="text-blue-600"
+                        />
 
                     </div>
 
@@ -72,77 +63,32 @@ function Dashboard() {
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-                            {/* META 1 */}
+                            <MetaCard
+                                titulo="🛟 Reserva de emergência"
+                                valorAtual="R$ 8.200"
+                                valorMeta="R$ 10.000"
+                                progresso={82}
+                                faltam="R$ 1.800"
+                                cor="bg-green-500"
+                            />
 
-                            <div className="bg-white/60 rounded-[30px] p-6">
+                            <MetaCard
+                                titulo="✈️ Viagem"
+                                valorAtual="R$ 3.000"
+                                valorMeta="R$ 5.000"
+                                progresso={60}
+                                faltam="R$ 2.000"
+                                cor="bg-blue-500"
+                            />
 
-                                <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                                    🛟 Reserva de emergência
-                                </h3>
-
-                                <p className="text-[#5B5B5B] mt-4">
-                                    R$ 8.200 de R$ 10.000
-                                </p>
-
-                                <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                                    <div className="w-[82%] h-full bg-green-500 rounded-full"></div>
-
-                                </div>
-
-                                <p className="mt-4 text-sm text-[#5B5B5B]">
-                                    Faltam R$ 1.800
-                                </p>
-
-                            </div>
-
-                            {/* META 2 */}
-
-                            <div className="bg-white/60 rounded-[30px] p-6">
-
-                                <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                                    ✈️ Viagem
-                                </h3>
-
-                                <p className="text-[#5B5B5B] mt-4">
-                                    R$ 3.000 de R$ 5.000
-                                </p>
-
-                                <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                                    <div className="w-[60%] h-full bg-blue-500 rounded-full"></div>
-
-                                </div>
-
-                                <p className="mt-4 text-sm text-[#5B5B5B]">
-                                    Faltam R$ 2.000
-                                </p>
-
-                            </div>
-
-                            {/* META 3 */}
-
-                            <div className="bg-white/60 rounded-[30px] p-6">
-
-                                <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                                    💻 Notebook
-                                </h3>
-
-                                <p className="text-[#5B5B5B] mt-4">
-                                    R$ 900 de R$ 3.000
-                                </p>
-
-                                <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                                    <div className="w-[30%] h-full bg-violet-500 rounded-full"></div>
-
-                                </div>
-
-                                <p className="mt-4 text-sm text-[#5B5B5B]">
-                                    Faltam R$ 2.100
-                                </p>
-
-                            </div>
+                            <MetaCard
+                                titulo="💻 Notebook"
+                                valorAtual="R$ 900"
+                                valorMeta="R$ 3.000"
+                                progresso={30}
+                                faltam="R$ 2.100"
+                                cor="bg-violet-500"
+                            />
 
                         </div>
 
@@ -161,71 +107,23 @@ function Dashboard() {
 
                                 <div className="flex flex-col gap-5">
 
-                                    {/* CONTA 1 */}
+                                    <ContaCard
+                                        nome="Internet"
+                                        vencimento="Vence amanhã"
+                                        valor="R$ 89"
+                                    />
 
-                                    <div className="flex justify-between items-center border-b border-white/50 pb-4">
+                                    <ContaCard
+                                        nome="Energia"
+                                        vencimento="Vence em 5 dias"
+                                        valor="R$ 120"
+                                    />
 
-                                        <div>
-
-                                            <h3 className="font-semibold text-[#4B4B4B]">
-                                                Internet
-                                            </h3>
-
-                                            <p className="text-sm text-[#5B5B5B]">
-                                                Vence amanhã
-                                            </p>
-
-                                        </div>
-
-                                        <span className="font-bold text-[#4B4B4B]">
-                                            R$ 89
-                                        </span>
-
-                                    </div>
-
-                                    {/* CONTA 2 */}
-
-                                    <div className="flex justify-between items-center border-b border-white/50 pb-4">
-
-                                        <div>
-
-                                            <h3 className="font-semibold text-[#4B4B4B]">
-                                                Energia
-                                            </h3>
-
-                                            <p className="text-sm text-[#5B5B5B]">
-                                                Vence em 5 dias
-                                            </p>
-
-                                        </div>
-
-                                        <span className="font-bold text-[#4B4B4B]">
-                                            R$ 120
-                                        </span>
-
-                                    </div>
-
-                                    {/* CONTA 3 */}
-
-                                    <div className="flex justify-between items-center">
-
-                                        <div>
-
-                                            <h3 className="font-semibold text-[#4B4B4B]">
-                                                Cartão Nubank
-                                            </h3>
-
-                                            <p className="text-sm text-[#5B5B5B]">
-                                                Vence em 7 dias
-                                            </p>
-
-                                        </div>
-
-                                        <span className="font-bold text-[#4B4B4B]">
-                                            R$ 450
-                                        </span>
-
-                                    </div>
+                                    <ContaCard
+                                        nome="Cartão Nubank"
+                                        vencimento="Vence em 7 dias"
+                                        valor="R$ 450"
+                                    />
 
                                 </div>
 
@@ -241,23 +139,20 @@ function Dashboard() {
 
                                     <div className="flex flex-col gap-4">
 
-                                        <div className="bg-white/60 rounded-2xl p-4">
-                                            <p className="text-green-600 font-semibold">
-                                                ✨ Você economizou R$430 este mês
-                                            </p>
-                                        </div>
+                                        <ConquistaCard
+                                            mensagem="✨ Você economizou R$430 este mês"
+                                            cor="text-green-600"
+                                        />
 
-                                        <div className="bg-white/60 rounded-2xl p-4">
-                                            <p className="text-blue-600 font-semibold">
-                                                🌱 Sua reserva cresceu R$350
-                                            </p>
-                                        </div>
+                                        <ConquistaCard
+                                            mensagem="🌱 Sua reserva cresceu R$350"
+                                            cor="text-blue-600"
+                                        />
 
-                                        <div className="bg-white/60 rounded-2xl p-4">
-                                            <p className="text-purple-600 font-semibold">
-                                                🎯 Você alcançou 82% da meta principal
-                                            </p>
-                                        </div>
+                                        <ConquistaCard
+                                            mensagem="🎯 Você alcançou 82% da meta principal"
+                                            cor="text-purple-600"
+                                        />
 
                                     </div>
 
@@ -273,7 +168,7 @@ function Dashboard() {
 
             </div>
 
-        </Layout>
+        </Layout >
     )
 }
 
