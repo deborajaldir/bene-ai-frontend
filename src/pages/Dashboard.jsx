@@ -4,6 +4,10 @@ import ResumoCard from "../components/ResumoCard"
 import MetaCard from "../components/MetaCard"
 import ContaCard from "../components/ContaCard"
 import ConquistaCard from "../components/ConquistaCard"
+import { metas } from "../data/metas"
+import { contas } from "../data/contas"
+import { conquistas } from "../data/conquistas"
+import { resumo } from "../data/resumo"
 
 function Dashboard() {
     return (
@@ -34,22 +38,14 @@ function Dashboard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
 
-                        <ResumoCard
-                            titulo="Saldo disponível"
-                            valor="R$ 3.250"
-                        />
-
-                        <ResumoCard
-                            titulo="Economia do mês"
-                            valor="+R$ 430"
-                            cor="text-green-600"
-                        />
-
-                        <ResumoCard
-                            titulo="Meta principal"
-                            valor="82%"
-                            cor="text-blue-600"
-                        />
+                        {resumo.map((item) => (
+                            <ResumoCard
+                                key={item.titulo}
+                                titulo={item.titulo}
+                                valor={item.valor}
+                                cor={item.cor}
+                            />
+                        ))}
 
                     </div>
 
@@ -63,32 +59,19 @@ function Dashboard() {
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-                            <MetaCard
-                                titulo="🛟 Reserva de emergência"
-                                valorAtual="R$ 8.200"
-                                valorMeta="R$ 10.000"
-                                progresso={82}
-                                faltam="R$ 1.800"
-                                cor="bg-green-500"
-                            />
-
-                            <MetaCard
-                                titulo="✈️ Viagem"
-                                valorAtual="R$ 3.000"
-                                valorMeta="R$ 5.000"
-                                progresso={60}
-                                faltam="R$ 2.000"
-                                cor="bg-blue-500"
-                            />
-
-                            <MetaCard
-                                titulo="💻 Notebook"
-                                valorAtual="R$ 900"
-                                valorMeta="R$ 3.000"
-                                progresso={30}
-                                faltam="R$ 2.100"
-                                cor="bg-violet-500"
-                            />
+                            {
+                                metas.map((meta) => (
+                                    <MetaCard
+                                        key={meta.titulo}
+                                        titulo={meta.titulo}
+                                        valorAtual={meta.valorAtual}
+                                        valorMeta={meta.valorMeta}
+                                        progresso={meta.progresso}
+                                        faltam={meta.faltam}
+                                        cor={meta.cor}
+                                    />
+                                ))
+                            }
 
                         </div>
 
@@ -107,23 +90,16 @@ function Dashboard() {
 
                                 <div className="flex flex-col gap-5">
 
-                                    <ContaCard
-                                        nome="Internet"
-                                        vencimento="Vence amanhã"
-                                        valor="R$ 89"
-                                    />
-
-                                    <ContaCard
-                                        nome="Energia"
-                                        vencimento="Vence em 5 dias"
-                                        valor="R$ 120"
-                                    />
-
-                                    <ContaCard
-                                        nome="Cartão Nubank"
-                                        vencimento="Vence em 7 dias"
-                                        valor="R$ 450"
-                                    />
+                                    {
+                                        contas.map((conta) => (
+                                            <ContaCard
+                                                key={conta.nome}
+                                                nome={conta.nome}
+                                                vencimento={conta.vencimento}
+                                                valor={conta.valor}
+                                            />
+                                        ))
+                                    }
 
                                 </div>
 
@@ -139,20 +115,15 @@ function Dashboard() {
 
                                     <div className="flex flex-col gap-4">
 
-                                        <ConquistaCard
-                                            mensagem="✨ Você economizou R$430 este mês"
-                                            cor="text-green-600"
-                                        />
-
-                                        <ConquistaCard
-                                            mensagem="🌱 Sua reserva cresceu R$350"
-                                            cor="text-blue-600"
-                                        />
-
-                                        <ConquistaCard
-                                            mensagem="🎯 Você alcançou 82% da meta principal"
-                                            cor="text-purple-600"
-                                        />
+                                        {
+                                            conquistas.map((conquista, index) => (
+                                                <ConquistaCard
+                                                    key={index}
+                                                    mensagem={conquista.mensagem}
+                                                    cor={conquista.cor}
+                                                />
+                                            ))
+                                        }
 
                                     </div>
 

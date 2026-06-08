@@ -1,6 +1,65 @@
+import { useState } from "react"
 import Layout from "../components/Layout"
+import MetaForm from "../components/MetaForm"
 
 function Metas() {
+
+    const [mostrarFormulario, setMostrarFormulario] = useState(false)
+    const [nomeMeta, setNomeMeta] = useState("")
+    const [valorMeta, setValorMeta] = useState("")
+    const [metas, setMetas] = useState([
+        {
+            titulo: "🛟 Reserva de emergência",
+            valorAtual: "R$ 8.200",
+            valorMeta: "R$ 10.000",
+            progresso: 82,
+            cor: "bg-green-500"
+        },
+        {
+            titulo: "✈️ Viagem",
+            valorAtual: "R$ 3.000",
+            valorMeta: "R$ 5.000",
+            progresso: 60,
+            cor: "bg-blue-500"
+        },
+        {
+            titulo: "💻 Notebook",
+            valorAtual: "R$ 900",
+            valorMeta: "R$ 3.000",
+            progresso: 30,
+            cor: "bg-violet-500"
+        }
+    ])
+    function adicionarMeta() {
+
+        if (!nomeMeta || !valorMeta) {
+            return
+        }
+
+        const novaMeta = {
+            titulo: nomeMeta,
+            valorAtual: "R$ 0",
+            valorMeta: `R$ ${valorMeta}`,
+            progresso: 0,
+            cor: "bg-pink-500"
+        }
+
+        setMetas([...metas, novaMeta])
+
+        setNomeMeta("")
+        setValorMeta("")
+        setMostrarFormulario(false)
+    }
+
+    function excluirMeta(indexMeta) {
+
+        const metasAtualizadas = metas.filter(
+            (_, index) => index !== indexMeta
+        )
+
+        setMetas(metasAtualizadas)
+    }
+
     return (
         <Layout>
 
@@ -20,96 +79,69 @@ function Metas() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-6">
 
-                    <div className="bg-white/60 rounded-[30px] p-6">
+                    {metas.map((meta, index) => (
 
-                        <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                            🛟 Reserva de emergência
-                        </h3>
+                        <div
+                            key={index}
+                            className="bg-white/60 rounded-[30px] p-6"
+                        >
 
-                        <p className="text-[#5B5B5B] mt-4">
-                            R$ 8.200 de R$ 10.000
-                        </p>
+                            <h3 className="font-semibold text-[#4B4B4B] text-lg">
+                                {meta.titulo}
+                            </h3>
 
-                        <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
+                            <p className="text-[#5B5B5B] mt-4">
+                                {meta.valorAtual} de {meta.valorMeta}
+                            </p>
 
-                            <div className="w-[82%] h-full bg-green-500 rounded-full"></div>
+                            <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
 
-                        </div>
+                                <div
+                                    className={`h-full rounded-full ${meta.cor}`}
+                                    style={{ width: `${meta.progresso}%` }}
+                                />
 
-                        <p className="mt-4 text-sm text-[#5B5B5B]">
-                            82% concluído
-                        </p>
+                            </div>
 
-                        <button className="mt-5 text-sm font-semibold text-[#4B4B4B] hover:underline">
-                            Ver progresso →
-                        </button>
+                            <p className="mt-4 text-sm text-[#5B5B5B]">
+                                {meta.progresso}% concluído
+                            </p>
 
-                    </div>
-
-                    <div className="bg-white/60 rounded-[30px] p-6">
-
-                        <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                            ✈️ Viagem
-                        </h3>
-
-                        <p className="text-[#5B5B5B] mt-4">
-                            R$ 3.000 de R$ 5.000
-                        </p>
-
-                        <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                            <div className="w-[82%] h-full bg-blue-500 rounded-full"></div>
+                            <button
+                                onClick={() => excluirMeta(index)}
+                                className="mt-4 text-red-500 text-sm font-semibold hover:underline"
+                            >
+                                🗑 Excluir
+                            </button>
 
                         </div>
 
-                        <p className="mt-4 text-sm text-[#5B5B5B]">
-                            60% concluído
-                        </p>
-
-                        <button className="mt-5 text-sm font-semibold text-[#4B4B4B] hover:underline">
-                            Ver progresso →
-                        </button>
-
-                    </div>
-
-                    <div className="bg-white/60 rounded-[30px] p-6">
-
-                        <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                            💻 Notebook
-                        </h3>
-
-                        <p className="text-[#5B5B5B] mt-4">
-                            R$ 900 de R$ 3.000
-                        </p>
-
-                        <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                            <div className="w-[82%] h-full bg-violet-500 rounded-full"></div>
-
-                        </div>
-
-                        <p className="mt-4 text-sm text-[#5B5B5B]">
-                            30% concluído
-                        </p>
-
-                        <button className="mt-5 text-sm font-semibold text-[#4B4B4B] hover:underline">
-                            Ver progresso →
-                        </button>
-
-
-                    </div>
+                    ))}
 
                 </div>
 
                 <div className="mt-8 flex justify-center">
 
                     <button
+                        onClick={() => setMostrarFormulario(!mostrarFormulario)}
                         className="bg-[#4B4B4B] text-[#F7EDC3] px-6 py-4 rounded-2xl font-semibold hover:opacity-90 transition"
                     >
                         + Nova Meta
                     </button>
 
                 </div>
+
+                {
+                    mostrarFormulario && (
+                        <MetaForm
+                            nomeMeta={nomeMeta}
+                            setNomeMeta={setNomeMeta}
+                            valorMeta={valorMeta}
+                            setValorMeta={setValorMeta}
+                            adicionarMeta={adicionarMeta}
+                        />
+                    )
+                }
 
             </div>
 
