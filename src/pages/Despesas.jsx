@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Layout from "../components/Layout"
+import { despesasMock } from "../data/mockData"
 
 function Despesas() {
 
@@ -9,28 +10,7 @@ function Despesas() {
     const [categoria, setCategoria] = useState("")
     const [valor, setValor] = useState("")
 
-    const [despesas, setDespesas] = useState([
-        {
-            nome: "🛒 Mercado",
-            categoria: "Alimentação",
-            valor: "180"
-        },
-        {
-            nome: "🛜 Internet",
-            categoria: "Assinaturas",
-            valor: "89"
-        },
-        {
-            nome: "💪 Academia",
-            categoria: "Saúde",
-            valor: "89"
-        },
-        {
-            nome: "🚗 Uber",
-            categoria: "Transporte",
-            valor: "120"
-        }
-    ])
+    const [despesas, setDespesas] = useState(despesasMock)
 
     function adicionarDespesa() {
 

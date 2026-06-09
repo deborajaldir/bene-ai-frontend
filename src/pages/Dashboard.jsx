@@ -7,9 +7,38 @@ import ConquistaCard from "../components/ConquistaCard"
 import { metas } from "../data/metas"
 import { contas } from "../data/contas"
 import { conquistas } from "../data/conquistas"
-import { resumo } from "../data/resumo"
+import { despesasMock } from "../data/mockData"
 
 function Dashboard() {
+
+    const totalDespesas = despesasMock.reduce(
+        (total, despesa) => total + Number(despesa.valor),
+        0
+    )
+
+    const resumo = [
+        {
+            titulo: "Saldo disponível",
+            valor: "R$ 3.250",
+            cor: "text-[#4B4B4B]"
+        },
+        {
+            titulo: "Economia do mês",
+            valor: "+R$ 430",
+            cor: "text-green-600"
+        },
+        {
+            titulo: "Meta principal",
+            valor: "82%",
+            cor: "text-blue-600"
+        },
+        {
+            titulo: "Despesas do mês",
+            valor: `R$ ${totalDespesas}`,
+            cor: "text-red-500"
+        }
+    ]
+
     return (
         <Layout>
 

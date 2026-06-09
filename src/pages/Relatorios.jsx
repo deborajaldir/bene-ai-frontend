@@ -1,6 +1,13 @@
-import Layout from "../components/Layout" 
+import Layout from "../components/Layout"
+import { despesasMock } from "../data/mockData"
 
 function Relatorios() {
+
+    const totalDespesas = despesasMock.reduce(
+        (total, despesa) => total + Number(despesa.valor),
+        0
+    )
+
     return (
         <Layout>
 
@@ -35,11 +42,11 @@ function Relatorios() {
                     <div className="bg-white/60 rounded-[30px] p-6">
 
                         <p className="text-gray-500">
-                            Economia do mês
+                            Gastos cadastrados
                         </p>
 
-                        <h2 className="text-4xl font-bold text-green-600 mt-3">
-                            R$ 430
+                        <h2 className="text-4xl font-bold text-red-500 mt-3">
+                            R$ {totalDespesas}
                         </h2>
 
                     </div>
