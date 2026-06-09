@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
 
-function Sidebar() {
+function Sidebar({ mobile = false }) {
     return (
-        <aside className="hidden lg:flex w-[260px] bg-white/30 backdrop-blur-xl rounded-[36px] border border-white/30 p-6 flex-col">
-
+        <aside
+            className={
+                mobile
+                    ? "flex flex-col"
+                    : "hidden lg:flex w-[260px] bg-white/30 backdrop-blur-xl rounded-[36px] border border-white/30 p-6 flex-col"
+            }
+        >
             <h1 className="text-3xl font-extrabold text-[#4B4B4B]">
                 ✨ Benê
             </h1>
