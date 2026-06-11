@@ -1,6 +1,8 @@
 import { useState } from "react"
 import Layout from "../components/Layout"
 import { despesasMock } from "../data/mockData"
+import DespesasCard from "../components/DespesasCard"
+import DespesasForm from "../components/DespesasForm"
 
 function Despesas() {
 
@@ -105,46 +107,16 @@ function Despesas() {
 
                     {
                         mostrarFormulario && (
-
-                            <div className="bg-white/60 rounded-[30px] p-6 mt-6">
-
-                                <h2 className="text-2xl font-bold text-[#4B4B4B] mb-5">
-                                    {indexEditando !== null ? "Editar Despesa" : "Nova Despesa"}
-                                </h2>
-
-                                <input
-                                    type="text"
-                                    placeholder="Nome da despesa"
-                                    value={nomeDespesa}
-                                    onChange={(e) => setNomeDespesa(e.target.value)}
-                                    className="w-full p-4 rounded-2xl mb-4"
-                                />
-
-                                <input
-                                    type="text"
-                                    placeholder="Categoria"
-                                    value={categoria}
-                                    onChange={(e) => setCategoria(e.target.value)}
-                                    className="w-full p-4 rounded-2xl mb-4"
-                                />
-
-                                <input
-                                    type="number"
-                                    placeholder="Valor"
-                                    value={valor}
-                                    onChange={(e) => setValor(e.target.value)}
-                                    className="w-full p-4 rounded-2xl mb-4"
-                                />
-
-                                <button
-                                    onClick={adicionarDespesa}
-                                    className="bg-green-600 text-white px-6 py-3 rounded-2xl"
-                                >
-                                    {indexEditando !== null ? "Atualizar" : "Salvar"}
-                                </button>
-
-                            </div>
-
+                            <DespesasForm
+                                indexEditando={indexEditando}
+                                nomeDespesa={nomeDespesa}
+                                setNomeDespesa={setNomeDespesa}
+                                categoria={categoria}
+                                setCategoria={setCategoria}
+                                valor={valor}
+                                setValor={setValor}
+                                adicionarDespesa={adicionarDespesa}
+                            />
                         )
                     }
 
@@ -152,38 +124,13 @@ function Despesas() {
 
                         {despesas.map((despesa, index) => (
 
-                            <div
+                            <DespesasCard
                                 key={index}
-                                className="bg-white/60 rounded-[30px] p-6"
-                            >
-
-                                <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                                    {despesa.nome}
-                                </h3>
-
-                                <p className="text-[#5B5B5B] mt-2">
-                                    {despesa.categoria}
-                                </p>
-
-                                <h2 className="text-3xl font-bold text-[#4B4B4B] mt-4">
-                                    R$ {despesa.valor}
-                                </h2>
-
-                                <button
-                                    onClick={() => editarDespesa(index)}
-                                    className="mt-4 mr-4 text-blue-500 text-sm font-semibold hover:underline"
-                                >
-                                    ✏️ Editar
-                                </button>
-
-                                <button
-                                    onClick={() => excluirDespesa(index)}
-                                    className="mt-4 text-red-500 text-sm font-semibold hover:underline"
-                                >
-                                    🗑 Excluir
-                                </button>
-
-                            </div>
+                                despesa={despesa}
+                                index={index}
+                                editarDespesa={editarDespesa}
+                                excluirDespesa={excluirDespesa}
+                            />
 
                         ))}
 
