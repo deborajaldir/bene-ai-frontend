@@ -5,12 +5,11 @@ import { despesasMock } from "../data/mockData"
 function Despesas() {
 
     const [mostrarFormulario, setMostrarFormulario] = useState(false)
-
     const [nomeDespesa, setNomeDespesa] = useState("")
     const [categoria, setCategoria] = useState("")
     const [valor, setValor] = useState("")
-
     const [despesas, setDespesas] = useState(despesasMock)
+    const [indexEditando, setIndexEditando] = useState(null)
 
     function adicionarDespesa() {
 
@@ -22,16 +21,34 @@ function Despesas() {
             return
         }
 
-        const novaDespesa = {
-            nome: nomeDespesa,
-            categoria,
-            valor
-        }
+        if (indexEditando !== null) {
 
-        setDespesas([
-            ...despesas,
-            novaDespesa
-        ])
+            const despesasAtualizadas = [...despesas]
+
+            despesasAtualizadas[indexEditando] = {
+                nome: nomeDespesa,
+                categoria,
+                valor
+            }
+
+            setDespesas(despesasAtualizadas)
+
+            setIndexEditando(null)
+
+        } else {
+
+            const novaDespesa = {
+                nome: nomeDespesa,
+                categoria,
+                valor
+            }
+
+            setDespesas([
+                ...despesas,
+                novaDespesa
+            ])
+
+        }
 
         setNomeDespesa("")
         setCategoria("")
@@ -47,6 +64,17 @@ function Despesas() {
         )
 
         setDespesas(despesasAtualizadas)
+    }
+
+    function editarDespesa(index) {
+
+        const despesa = despesas[index]
+
+        setNomeDespesa(despesa.nome)
+        setCategoria(despesa.categoria)
+        setValor(despesa.valor)
+        setIndexEditando(index)
+        setMostrarFormulario(true)
     }
 
     return (
@@ -81,7 +109,7 @@ function Despesas() {
                             <div className="bg-white/60 rounded-[30px] p-6 mt-6">
 
                                 <h2 className="text-2xl font-bold text-[#4B4B4B] mb-5">
-                                    Nova Despesa
+                                    {indexEditando !== null ? "Editar Despesa" : "Nova Despesa"}
                                 </h2>
 
                                 <input
@@ -112,7 +140,7 @@ function Despesas() {
                                     onClick={adicionarDespesa}
                                     className="bg-green-600 text-white px-6 py-3 rounded-2xl"
                                 >
-                                    Salvar
+                                    {indexEditando !== null ? "Atualizar" : "Salvar"}
                                 </button>
 
                             </div>
@@ -140,6 +168,13 @@ function Despesas() {
                                 <h2 className="text-3xl font-bold text-[#4B4B4B] mt-4">
                                     R$ {despesa.valor}
                                 </h2>
+
+                                <button
+                                    onClick={() => editarDespesa(index)}
+                                    className="mt-4 mr-4 text-blue-500 text-sm font-semibold hover:underline"
+                                >
+                                    ✏️ Editar
+                                </button>
 
                                 <button
                                     onClick={() => excluirDespesa(index)}
