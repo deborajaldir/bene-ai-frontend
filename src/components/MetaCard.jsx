@@ -4,7 +4,8 @@ function MetaCard({
     valorAtual,
     valorMeta,
     cor,
-    faltam
+    destaque,
+    aoDestacar
 }) {
     return (
         <div className="bg-white/60 rounded-[30px] p-6">
@@ -27,8 +28,15 @@ function MetaCard({
             </div>
 
             <p className="mt-4 text-sm text-[#5B5B5B]">
-                Faltam {faltam}
+                {progresso}% concluído
             </p>
+
+            <button
+                onClick={aoDestacar}
+                className="mt-4 text-sm font-semibold text-amber-600 hover:underline"
+            >
+                {destaque ? "📌 Meta em foco" : "📍 Destacar meta"}
+            </button>
 
         </div>
     )

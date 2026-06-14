@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Layout from "../components/Layout"
 import MetaForm from "../components/MetaForm"
+import MetaCard from "../components/MetaCard"
 
 function Metas() {
 
@@ -13,21 +14,24 @@ function Metas() {
             valorAtual: "R$ 8.200",
             valorMeta: "R$ 10.000",
             progresso: 82,
-            cor: "bg-green-500"
+            cor: "bg-green-500",
+            destaque: false
         },
         {
             titulo: "✈️ Viagem",
             valorAtual: "R$ 3.000",
             valorMeta: "R$ 5.000",
             progresso: 60,
-            cor: "bg-blue-500"
+            cor: "bg-blue-500",
+            destaque: false
         },
         {
             titulo: "💻 Notebook",
             valorAtual: "R$ 900",
             valorMeta: "R$ 3.000",
             progresso: 30,
-            cor: "bg-violet-500"
+            cor: "bg-violet-500",
+            destaque: false
         }
     ])
     function adicionarMeta() {
@@ -41,7 +45,8 @@ function Metas() {
             valorAtual: "R$ 0",
             valorMeta: `R$ ${valorMeta}`,
             progresso: 0,
-            cor: "bg-pink-500"
+            cor: "bg-pink-500",
+            destaque: false
         }
 
         setMetas([...metas, novaMeta])
@@ -59,6 +64,18 @@ function Metas() {
 
         setMetas(metasAtualizadas)
     }
+
+    function destacarMeta(indexMeta) {
+
+        const metasAtualizadas = metas.map((meta, index) => ({
+            ...meta,
+            destaque: index === indexMeta
+        }))
+
+        setMetas(metasAtualizadas)
+    }
+
+    console.log(metas)
 
     return (
         <Layout>
@@ -81,35 +98,21 @@ function Metas() {
 
                     {metas.map((meta, index) => (
 
-                        <div
-                            key={index}
-                            className="bg-white/60 rounded-[30px] p-6"
-                        >
+                        <div key={index}>
 
-                            <h3 className="font-semibold text-[#4B4B4B] text-lg">
-                                {meta.titulo}
-                            </h3>
-
-                            <p className="text-[#5B5B5B] mt-4">
-                                {meta.valorAtual} de {meta.valorMeta}
-                            </p>
-
-                            <div className="w-full h-3 bg-white rounded-full mt-4 overflow-hidden">
-
-                                <div
-                                    className={`h-full rounded-full ${meta.cor}`}
-                                    style={{ width: `${meta.progresso}%` }}
-                                />
-
-                            </div>
-
-                            <p className="mt-4 text-sm text-[#5B5B5B]">
-                                {meta.progresso}% concluído
-                            </p>
+                            <MetaCard
+                                titulo={meta.titulo}
+                                valorAtual={meta.valorAtual}
+                                valorMeta={meta.valorMeta}
+                                progresso={meta.progresso}
+                                cor={meta.cor}
+                                destaque={meta.destaque}
+                                aoDestacar={() => destacarMeta(index)}
+                            />
 
                             <button
                                 onClick={() => excluirMeta(index)}
-                                className="mt-4 text-red-500 text-sm font-semibold hover:underline"
+                                className="mt-3 text-red-500 text-sm font-semibold hover:underline"
                             >
                                 🗑 Excluir
                             </button>
