@@ -8,6 +8,7 @@ function Metas() {
     const [mostrarFormulario, setMostrarFormulario] = useState(false)
     const [nomeMeta, setNomeMeta] = useState("")
     const [valorMeta, setValorMeta] = useState("")
+    const [indexEditando, setIndexEditando] = useState(null)
     const [metas, setMetas] = useState([
         {
             titulo: "🛟 Reserva de emergência",
@@ -65,6 +66,16 @@ function Metas() {
         setMetas(metasAtualizadas)
     }
 
+    function editarMeta(index) {
+        const meta = metas[index]
+
+        setNomeMeta(meta.titulo)
+        setValorMeta(meta.valorMeta.replace("R$ ", ""))
+
+        setIndexEditando(index)
+        setMostrarFormulario(true)
+    }
+
     function destacarMeta(indexMeta) {
 
         const metasAtualizadas = metas.map((meta, index) => ({
@@ -108,6 +119,7 @@ function Metas() {
                                 cor={meta.cor}
                                 destaque={meta.destaque}
                                 aoDestacar={() => destacarMeta(index)}
+                                aoEditar={() => editarMeta(index)}
                             />
 
                             <button
