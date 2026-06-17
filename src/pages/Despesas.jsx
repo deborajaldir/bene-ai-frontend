@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Layout from "../components/Layout"
 import { despesasMock } from "../data/mockData"
 import DespesasCard from "../components/DespesasCard"
@@ -7,11 +7,30 @@ import DespesasForm from "../components/DespesasForm"
 function Despesas() {
 
     const [mostrarFormulario, setMostrarFormulario] = useState(false)
+    
     const [nomeDespesa, setNomeDespesa] = useState("")
     const [categoria, setCategoria] = useState("")
     const [valor, setValor] = useState("")
-    const [despesas, setDespesas] = useState(despesasMock)
+    const [despesas, setDespesas] = useState(() => {
+        try {
+            const despesasSalvas = localStorage.getItem("despesas")
+
+            return despesasSalvas
+                ? JSON.parse(despesasSalvas)
+                : despesasMock
+        } catch {
+            return despesasMock
+        }
+    })
+
     const [indexEditando, setIndexEditando] = useState(null)
+
+    useEffect(() => {
+        localStorage.setItem(
+            "despesas",
+        JSON.stringify(despesas)
+        )
+    }, [despesas])
 
     function adicionarDespesa() {
 

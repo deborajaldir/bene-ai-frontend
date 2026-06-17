@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Layout from "../components/Layout"
 import MetaForm from "../components/MetaForm"
 import MetaCard from "../components/MetaCard"
+import { MetasContext } from "../context/MetasContext"
 
 function Metas() {
 
@@ -9,32 +10,8 @@ function Metas() {
     const [nomeMeta, setNomeMeta] = useState("")
     const [valorMeta, setValorMeta] = useState("")
     const [indexEditando, setIndexEditando] = useState(null)
-    const [metas, setMetas] = useState([
-        {
-            titulo: "🛟 Reserva de emergência",
-            valorAtual: "R$ 8.200",
-            valorMeta: "R$ 10.000",
-            progresso: 82,
-            cor: "bg-green-500",
-            destaque: false
-        },
-        {
-            titulo: "✈️ Viagem",
-            valorAtual: "R$ 3.000",
-            valorMeta: "R$ 5.000",
-            progresso: 60,
-            cor: "bg-blue-500",
-            destaque: false
-        },
-        {
-            titulo: "💻 Notebook",
-            valorAtual: "R$ 900",
-            valorMeta: "R$ 3.000",
-            progresso: 30,
-            cor: "bg-violet-500",
-            destaque: false
-        }
-    ])
+    const { metas, setMetas } = useContext(MetasContext)
+
     function adicionarMeta() {
 
         if (!nomeMeta || !valorMeta) {
