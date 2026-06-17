@@ -41,16 +41,35 @@ function Metas() {
             return
         }
 
-        const novaMeta = {
-            titulo: nomeMeta,
-            valorAtual: "R$ 0",
-            valorMeta: `R$ ${valorMeta}`,
-            progresso: 0,
-            cor: "bg-pink-500",
-            destaque: false
-        }
+        if (indexEditando !== null) {
 
-        setMetas([...metas, novaMeta])
+            const metasAtualizadas = [...metas]
+
+            metasAtualizadas[indexEditando] = {
+                ...metasAtualizadas[indexEditando],
+                titulo: nomeMeta,
+                valorMeta: `R$ ${valorMeta}`
+            }
+
+            setMetas(metasAtualizadas)
+            setIndexEditando(null)
+
+        } else {
+
+            const novaMeta = {
+                titulo: nomeMeta,
+                valorAtual: "R$ 0",
+                valorMeta: `R$ ${valorMeta}`,
+                progresso: 0,
+                cor: "bg-pink-500",
+                destaque: false
+            }
+
+            setMetas([
+                ...metas,
+                novaMeta
+            ])
+        }
 
         setNomeMeta("")
         setValorMeta("")
