@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import MetaForm from "../components/MetaForm"
 import MetaCard from "../components/MetaCard"
 import { MetasContext } from "../context/MetasContext"
+import { buscarMetas, criarMeta } from "../services/metaService";
 
 function Metas() {
 
@@ -12,7 +13,7 @@ function Metas() {
     const [indexEditando, setIndexEditando] = useState(null)
     const { metas, setMetas } = useContext(MetasContext)
 
-    function adicionarMeta() {
+    async function adicionarMeta() {
 
         if (!nomeMeta || !valorMeta) {
             return
@@ -35,17 +36,17 @@ function Metas() {
 
             const novaMeta = {
                 titulo: nomeMeta,
-                valorAtual: "R$ 0",
-                valorMeta: `R$ ${valorMeta}`,
+                valorAtual: 0,
+                valorMeta: Number(valorMeta),
                 progresso: 0,
                 cor: "bg-pink-500",
                 destaque: false
             }
 
-            setMetas([
-                ...metas,
-                novaMeta
-            ])
+            await criarMeta(novaMeta)
+
+            const metasAtualizadas = await buscarMetas()
+            setMetas(metasAtualizadas)
         }
 
         setNomeMeta("")
