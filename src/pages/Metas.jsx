@@ -3,7 +3,7 @@ import Layout from "../components/Layout"
 import MetaForm from "../components/MetaForm"
 import MetaCard from "../components/MetaCard"
 import { MetasContext } from "../context/MetasContext"
-import { buscarMetas, criarMeta } from "../services/metaService";
+import { buscarMetas, criarMeta, excluirMeta as excluirMetaAPI, atualizarMeta } from "../services/metaService";
 
 function Metas() {
 
@@ -21,16 +21,20 @@ function Metas() {
 
         if (indexEditando !== null) {
 
-            const metasAtualizadas = [...metas]
+            const meta = metas[indexEditando];
 
-            metasAtualizadas[indexEditando] = {
-                ...metasAtualizadas[indexEditando],
+            const metaAtualizada = {
+                ...meta,
                 titulo: nomeMeta,
-                valorMeta: `R$ ${valorMeta}`
-            }
+                valorMeta: Number(valorMeta)
+            };
 
-            setMetas(metasAtualizadas)
-            setIndexEditando(null)
+            await atualizarMeta(meta.id, metaAtualizada);
+
+            const metasAtualizadas = await buscarMetas();
+            setMetas(metasAtualizadas);
+
+            setIndexEditando(null);
 
         } else {
 
@@ -54,20 +58,21 @@ function Metas() {
         setMostrarFormulario(false)
     }
 
-    function excluirMeta(indexMeta) {
+    async function excluirMeta(indexMeta) {
 
-        const metasAtualizadas = metas.filter(
-            (_, index) => index !== indexMeta
-        )
+        const id = metas[indexMeta].id;
 
-        setMetas(metasAtualizadas)
+        await excluirMetaAPI(id);
+
+        const metasAtualizadas = await buscarMetas();
+        setMetas(metasAtualizadas);
     }
 
     function editarMeta(index) {
         const meta = metas[index]
 
         setNomeMeta(meta.titulo)
-        setValorMeta(meta.valorMeta.replace("R$ ", ""))
+        setValorMeta(String(meta.valorMeta))
 
         setIndexEditando(index)
         setMostrarFormulario(true)

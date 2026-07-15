@@ -25,3 +25,29 @@ export async function criarMeta(meta) {
 
     return await response.json();
 }
+
+export async function excluirMeta(id) {
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao excluir meta.");
+    }
+}
+
+export async function atualizarMeta(id, meta) {
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(meta)
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao atualizar meta.");
+    }
+
+    return await response.json();
+}
